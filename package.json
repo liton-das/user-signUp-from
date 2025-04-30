@@ -1,0 +1,22 @@
+{
+  "name": "signup-backend",
+  "version": "1.0.0",
+  "description": "user signUp form with backend using html,css,express,mongoose,express-validator ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "liton das",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10"
+  }
+}
