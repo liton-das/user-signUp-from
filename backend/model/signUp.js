@@ -19,7 +19,7 @@ const SignUpSchema=new Schema({
         type:String,
         required:true,
         trim:true,
-        maslength:30,
+        maxlength:30,
         minlength:3
     },
     email:{
@@ -44,7 +44,7 @@ const SignUpSchema=new Schema({
         minlength:6,
         maxlength:20,
     },
-    confirmPassword:{
+    confirm_password:{
         type:String,
         required:true,
         trim:true,
@@ -52,5 +52,5 @@ const SignUpSchema=new Schema({
         maxlength:20,
     }
 })
-const SignUp=model('SignUp',SignUpSchema);
-module.exports=SignUp;
+const User=model('User',SignUpSchema);
+module.exports=User;
