@@ -13,12 +13,11 @@ module.exports.signUpPostController=async(req,res,next)=>{
     // validation
     const erros=validationResult(req)
     const format=(erros)=>erros.msg
-    
-    const user=await User.findOne({email})
     const salt=await bcrypt.genSalt(10)
     const hashedPassword=await bcrypt.hash(password,salt)
-    if(user){
-        return res.json({message:'User already exists'})
+    if(erros){
+        console.log(erros.formatWith(format).mapped());
+        
     }
         const data=new User({
             firstName,
@@ -28,7 +27,6 @@ module.exports.signUpPostController=async(req,res,next)=>{
             password:hashedPassword,
             confirm_password:hashedPassword
         })
-        console.log(erros.formatWith(format));
         
         try{
             await data.save()

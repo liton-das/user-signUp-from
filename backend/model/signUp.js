@@ -12,15 +12,11 @@ const SignUpSchema=new Schema({
         type:String,
         required:true,
         trim:true,
-        maxlength:30,
-        minlength:3,
     },
     lastName:{
         type:String,
         required:true,
         trim:true,
-        maxlength:30,
-        minlength:3
     },
     email:{
         type:String,
@@ -33,23 +29,16 @@ const SignUpSchema=new Schema({
         type:String,
         required:true,
         trim:true,
-        unique:true,
-        maxlength:19,
-        minlength:6,
     },
     password:{
         type:String,
         required:true,
         trim:true,
-        minlength:6,
-        maxlength:20,
     },
     confirm_password:{
         type:String,
         required:true,
         trim:true,
-        minlength:6,
-        maxlength:20,
     }
 })
 const User=model('User',SignUpSchema);
