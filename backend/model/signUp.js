@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-
 // This is the schema for the signUp form
 //  firstName,
 //  lastName,

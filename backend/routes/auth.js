@@ -14,15 +14,15 @@ const validationMiddleware=[
     body('lastName')
     .not()
     .isEmpty().withMessage('you can not leave this field empty')
-    .isLength({min:3}).withMessage('first name must be at least 3 characters long')
-    .isLength({max:20}).withMessage('first name must be at most 20 characters long')
+    .isLength({min:3}).withMessage('last name must be at least 3 characters long')
+    .isLength({max:20}).withMessage('last name must be at most 20 characters long')
     .trim(),
     body('email')
     .isEmail().withMessage('you must provide an email')
     .custom(async(email)=>{
         const user=await User.find({email})
         if(user){
-            throw new Error('user email already exists')
+           return Promise.reject('user email already exists')
         }
     })
     .normalizeEmail()
