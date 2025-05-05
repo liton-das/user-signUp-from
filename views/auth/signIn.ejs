@@ -1,0 +1,41 @@
+<%- include('../incloudes/head.ejs') %>
+<!-- -------------------- navbar section start ------------------------- -->
+<%- include('../incloudes/navbar.ejs') %>
+<!-- -------------------- navbar section end ------------------------- -->
+    <section id="main_signUp">
+        <div class="card">
+            <div class="icon">
+                <img src="/images/Launching 1.png" alt="Launching">
+            </div>
+            <h1><%= title %></h1>
+            <p>You are welcome!</p>
+            <form action="/auth/signIn" method="post" class="userForm">
+                <label for="email">E-mail</label>
+                <div class="email_inp">
+                    <input required="true" name="email" type="email" id="email" placeholder="Email"  class="myInput form-control <%= error.email ? 'is-invalid' : '' %> " >
+                    <% if (!error.email) { %>
+                      <i class="fa fa-solid email_icon fa-envelope my_icon"></i>
+                    <% } %>
+                    <div class="validate_input invalid-feedback">
+                      <%= error.email && error.email %>
+                    </div>
+                </div>
+                <label for="password">Password</label>
+                <div class="password_inp">
+                    <input required="true" name="password" type="password" id="password" placeholder="Password" class="myInput form-control <%= error.password ? 'is-invalid' : '' %>" >
+                    <% if (!error.password) { %>
+                      <i class="fa password_icon fa-solid fa-eye my_icon"></i>
+                    <% } %>
+                    <div class="validate_input invalid-feedback">
+                      <% error.password && error.password %>
+                    </div>
+                </div>
+                <input class="signUpbtn mb-2" type="submit" value="Sign In">
+                <div class="signInText">
+                    <p>Don't have an account?<a href="/auth/signUp">Sign Up Here</a></p>
+                    <p>Forget Password?<a href="#">Reset Password</a></p>
+                </div>
+            </form>
+        </div>
+    </section>
+    <%- include('../incloudes/footer.ejs') %>

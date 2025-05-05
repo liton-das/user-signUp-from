@@ -1,30 +1,6 @@
 <%- include('../incloudes/head.ejs') %>
 <!-- -------------------- navbar section start ------------------------- -->
-<nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">SignIn</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Logout</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+<%- include('../incloudes/navbar.ejs') %>
 <!-- -------------------- navbar section end ------------------------- -->
     <section id="main_signUp">
         <div class="card">
@@ -38,48 +14,60 @@
                 <div class="name_inp">
                     <div class="firstName">
                         <input required="true" name="firstName" type="text" id="name" placeholder="First name " class="form-control <%= error.firstName ? 'is-invalid' : '' %> " >
-                        <i class="fa-regular user_icon fa-user"></i>
-                        <div class="invalid-feedback">
+                        <% if (!error.firstName) { %>
+                          <i class="fa-regular user_icon fa-user"></i>
+                        <% } %>
+                        <div class="validate_input invalid-feedback">
                           <%= error.firstName && error.firstName %>
                         </div>
                     </div>
                     <div class="lastName">
                         <input required="true" name="lastName" type="text" placeholder="Last name"  class="form-control <%= error.lastName ? 'is-invalid' : '' %> " >
-                        <i class="fa-regular user_icon fa-user"></i>
-                        <div class="invalid-feedback">
+                        <% if (!error.lastName) { %>
+                          <i class="fa-regular user_icon fa-user"></i>
+                        <% } %>
+                        <div class="validate_input invalid-feedback">
                           <%= error.lastName && error.lastName %>
                         </div>
                     </div>
                 </div>
                 <label for="email">E-mail</label>
                 <div class="email_inp">
-                    <input required="true" class="myInput" name="email" type="email" id="email" placeholder="Email"  class="form-control <%= error.email ? 'is-invalid' : '' %> " >
-                    <i class="fa fa-solid email_icon fa-envelope my_icon"></i>
-                    <div class="invalid-feedback">
+                    <input required="true" name="email" type="email" id="email" placeholder="Email"  class="myInput form-control <%= error.email ? 'is-invalid' : '' %> " >
+                    <% if (!error.email) { %>
+                      <i class="fa fa-solid email_icon fa-envelope my_icon"></i>
+                    <% } %>
+                    <div class="validate_input invalid-feedback">
                       <%= error.email && error.email %>
                     </div>
                 </div>
                 <label for="phone">Phone numbers</label>
                 <div class="phone_inp">
                     <input required="true" class="myInput" name="phone" type="text" id="phone" placeholder="(+01)"  class="form-control <%= error.phone ? 'is-invalid' : '' %> " >
-                    <i class="fa-solid phone_icon fa-phone my_icon"></i>
-                    <div class="invalid-feedback">
+                    <% if (!error.phone) { %>
+                      <i class="fa-solid phone_icon fa-phone my_icon"></i>
+                    <% } %>
+                    <div class="validate_input invalid-feedback">
                       <%= error.phone && error.phone %>
                     </div>
                 </div>
                 <label for="password">Password</label>
                 <div class="password_inp">
-                    <input required="true" class="myInput" name="password" type="password" id="password" placeholder="Password" class="form-control <%= error.password ? 'is-invalid' : '' %>" >
-                    <i class="fa password_icon fa-solid fa-eye my_icon"></i>
-                    <div class="invalid-feedback">
+                    <input required="true" name="password" type="password" id="password" placeholder="Password" class="myInput form-control <%= error.password ? 'is-invalid' : '' %>" >
+                    <% if (!error.password) { %>
+                      <i class="fa password_icon fa-solid fa-eye my_icon"></i>
+                    <% } %>
+                    <div class="validate_input invalid-feedback">
                       <% error.password && error.password %>
                     </div>
                 </div>
                 <label for="confirm_password">Confirm Password</label>
                 <div class="confirm_password_inp">
-                    <input required="true" class="myInput" name="confirm_password" type="password" id="confirm_password" placeholder="Confirm password" class="form-control <%= error.confirm_password ? 'is-invalid' : '' %>" >
-                    <i class="fa confirm_password_icon fa-solid fa-eye my_icon"></i>
-                    <div class="invalid-feedback">
+                    <input required="true" name="confirm_password" type="password" id="confirm_password" placeholder="Confirm password" class="myInput form-control <%= error.confirm_password ? 'is-invalid' : '' %>" >
+                    <% if (!error.confirm_password) { %>
+                      <i class="fa confirm_password_icon fa-solid fa-eye my_icon"></i>
+                    <% } %>
+                    <div class="validate_input invalid-feedback">
                       <%= error.confirm_password && error.confirm_password %>
                     </div>
                   </div>
@@ -92,7 +80,7 @@
                     <a class="google_icon my_btn" href="#"><img src="/images/image 157.png" alt="google_icon">Google account</a>
                     <a class="my_btn" href="#"><span> <i class="fa-brands fa-facebook"></i> </span> Facebook account</a>
                 </div>
-                <p>Already have an account?<a href="#">Sign in</a></p>
+                <p>Already have an account?<a href="/auth/signIn">Sign in</a></p>
             </form>
         </div>
     </section>
