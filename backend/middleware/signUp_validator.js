@@ -16,7 +16,7 @@ module.exports=[
     body('email')
     .isEmail().withMessage('you must provide an email')
     .custom(async(email)=>{
-        const user=await User.find({email})
+        const user=await User.findOne({email})
         if(user){
            return Promise.reject('user email already exists')
         }
@@ -34,9 +34,14 @@ module.exports=[
     .isLength({min:6}).withMessage('password must be at least 6 characters long')
     .trim(),
     body('confirm_password')
+    .not()
+    .isEmpty().withMessage('you can not leave this field empty')
+    .isLength({min:6}).withMessage('password must be at least 6 characters long')
+    .trim()
     .custom((confirm_password,{req})=>{
         if(confirm_password!==req.body.password){
             throw new Error('password and confirm password does not match')
         }
+        return true
     })
 ]

@@ -14,8 +14,9 @@ const middleware=[
 app.use(middleware);
 app.use('/auth',routes)
 const PORT=process.env.PORT || 4000;
+const my_DB=process.env.DB_NAME
 app.listen(PORT,()=>{
-    mongoose.connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`)
+    mongoose.connect(`mongodb://127.0.0.1:27017/${my_DB}`)
     .then(()=>{
         console.log('DB connected successfully');
     }).catch(err=>{

@@ -31,13 +31,11 @@ const SignUpSchema=new Schema({
     },
     password:{
         type:String,
-        required:true,
-        trim:true,
+        required:true
     },
     confirm_password:{
         type:String,
-        required:true,
-        trim:true,
+        required:true
     }
 })
 const User=model('User',SignUpSchema);
