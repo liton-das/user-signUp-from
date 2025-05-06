@@ -15,7 +15,7 @@ app.use(middleware);
 app.use('/auth',routes)
 const PORT=process.env.PORT || 4000;
 app.listen(PORT,()=>{
-    mongoose.connect('mongodb://127.0.0.1:27017/signUp-form')
+    mongoose.connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`)
     .then(()=>{
         console.log('DB connected successfully');
     }).catch(err=>{
