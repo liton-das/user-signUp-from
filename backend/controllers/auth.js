@@ -39,25 +39,42 @@ module.exports.signUpPostController = async (req, res, next) => {
 
   try {
     await data.save();
-    res.status(201).json({ message: "User created successfully" });
+    return res.status(201).render('auth/signIn.ejs',{title:'Sign In',error:{}})
   } catch (err) {
-    res.status(400).json({ message: "somthing went wrong", err });
+    return res.status(400).json({ message: "somthing went wrong", err });
   }
 };
 
 // --------------------------signIn get controller--------------------------
 module.exports.signInGetController=(req,res,next)=>{
-  res.status(200).render('auth/signIn.ejs',{title:'Sign In',error:{}})
+  res.render('auth/signIn.ejs',{title:'Sign In',error:{}})
 }
 // --------------------------signIn post controller--------------------------
 module.exports.signInPostController=async(req,res,next)=>{
   const {email,password}=req.body
   const errors=validationResult(req).formatWith(errorFormater)
-  const user=await User.findOne({email})
-  console.log(errors);
+  if(!errors.isEmpty()){
+    return res.render('auth/signIn.ejs',{title:'Sign In',error:errors.mapped()})
+  }
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "invalid credentials" });
+    }
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(400).json({ message: "invalid credentials" });
+    }
+    
+    return res.status(200).render('dashboard.ejs',{title:'Dashboard'})
+  } catch (e) {
+    console.log(e);
+    next(e)
+  }
   
-  // if(!user){
-  //   return res.render('auth/signIn.ejs',{title:'Sign In',error:errors.mapped()})
-  // }
-  // return res.render('auth/signIn.ejs',{title:'Sign In',error:errors.mapped()})
+  
+  if(!user){
+    return res.render('auth/signIn.ejs',{title:'Sign In',error:errors.mapped()})
+  }
+  return res.render('auth/dashboard',{title:'Sign In',error:errors.mapped()})
 }

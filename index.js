@@ -14,7 +14,7 @@ const middleware=[
 app.use(middleware);
 app.use('/auth',routes)
 const PORT=process.env.PORT || 4000;
-const my_DB=process.env.DB_NAME
+const my_DB='signUp-form'
 app.listen(PORT,()=>{
     mongoose.connect(`mongodb://127.0.0.1:27017/${my_DB}`)
     .then(()=>{

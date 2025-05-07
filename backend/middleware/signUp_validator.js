@@ -20,6 +20,7 @@ module.exports=[
         if(user){
            return Promise.reject('user email already exists')
         }
+        return true
     }),
     body('phone')
     .not()
