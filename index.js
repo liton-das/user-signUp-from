@@ -1,22 +1,39 @@
 const express=require('express');
 const morgan = require('morgan');
 const mongoose=require('mongoose')
-const routes=require('./backend/routes/auth')
+const routes=require('./backend/routes/auth');
+const session = require('express-session');
+const { bindMiddleware } = require('./backend/middleware/authMiddleware');
+const setLocals=require('./backend/middleware/setLocals')
+const MongoDBStore = require('connect-mongodb-session')(session);
 const app=express();
 app.use(express.static('public'));
 app.set('view engine','ejs');
+const MongoDb_URi=`mongodb://127.0.0.1:27017/signUp-form`
+const store = new MongoDBStore({
+  uri: MongoDb_URi,
+  collection: 'mySessions'
+});
+
 const middleware=[
     morgan('dev'),
     express.json(),
     express.urlencoded({extended:true}),
     express.static('public'),
+    session({
+        secret:process.env.SECRET_KEY ||'SECRET_KEY',
+        resave:false,
+        saveUninitialized:false,
+        store:store
+    }),
+    bindMiddleware(),
+    setLocals()
 ]
 app.use(middleware);
 app.use('/auth',routes)
 const PORT=process.env.PORT || 4000;
-const my_DB='signUp-form'
 app.listen(PORT,()=>{
-    mongoose.connect(`mongodb://127.0.0.1:27017/${my_DB}`)
+    mongoose.connect(MongoDb_URi)
     .then(()=>{
         console.log('DB connected successfully');
     }).catch(err=>{
