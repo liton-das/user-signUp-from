@@ -52,8 +52,6 @@ module.exports.signInGetController=(req,res,next)=>{
 // --------------------------signIn post controller--------------------------
 module.exports.signInPostController=async(req,res,next)=>{
   const {email,password}=req.body
-  console.log(req.session.user,req.session.isLoggedIn);
-  
   const errors=validationResult(req).formatWith(errorFormater)
   if(!errors.isEmpty()){
     return res.render('auth/signIn.ejs',{title:'Sign In',error:errors.mapped()})
@@ -69,7 +67,7 @@ module.exports.signInPostController=async(req,res,next)=>{
     }
     req.session.isLoggedIn=true
     req.session.user=user
-    return res.status(200).render('dashboard.ejs',{title:'Dashboard'})
+    return res.status(200).render('pages/dashboard',{title:'Dashboard'})
   } catch (e) {
     console.log(e);
     next(e)
@@ -79,5 +77,5 @@ module.exports.signInPostController=async(req,res,next)=>{
   if(!user){
     return res.render('auth/signIn.ejs',{title:'Sign In',error:errors.mapped()})
   }
-  return res.render('auth/dashboard',{title:'Sign In',error:errors.mapped()})
+  return res.render('pages/dashboard',{title:'Sign In',error:errors.mapped()})
 }
