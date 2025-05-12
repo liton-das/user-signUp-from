@@ -21,3 +21,9 @@ module.exports.isAuthenticated=(req,res,next)=>{
     }
     next()
 }
+module.exports.isUnAuthenticated=(req,res,next)=>{
+    if(req.session.isLoggedIn){
+        return res.redirect('/dashboard')
+    }
+    next()
+}

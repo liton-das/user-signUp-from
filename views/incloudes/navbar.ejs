@@ -9,12 +9,22 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">SignIn</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Logout</a>
-          </li>
+          <% if (isLoggedIn) { %>
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="/auth/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled text-secondary" href="/auth/signIn">SignIn</a>
+              </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/auth/signIn">SignIn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/auth/signUp">SignUp</a>
+              </li>
+              <% } %>
+          
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

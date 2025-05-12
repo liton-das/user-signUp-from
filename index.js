@@ -29,7 +29,7 @@ const middleware=[
         store:store
     }),
     bindMiddleware(),
-    setLocals()
+    setLocals(),
 ]
 app.use(middleware);
 app.use('/auth',routes)

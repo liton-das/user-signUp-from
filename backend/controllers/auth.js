@@ -67,15 +67,26 @@ module.exports.signInPostController=async(req,res,next)=>{
     }
     req.session.isLoggedIn=true
     req.session.user=user
-    return res.status(200).render('pages/dashboard',{title:'Dashboard'})
+    req.session.save(err=>{
+      if(err){
+        console.log('session data not saved')
+        return next(err)
+      }
+      return res.redirect('/dashboard')
+    })
   } catch (e) {
     console.log(e);
     next(e)
   }
   
-  
-  if(!user){
-    return res.render('auth/signIn.ejs',{title:'Sign In',error:errors.mapped()})
-  }
-  return res.render('pages/dashboard',{title:'Sign In',error:errors.mapped()})
+}
+
+// ---------------------- Logout controller -----------------------------
+module.exports.logOutController=(req,res,next)=>{
+  req.session.destroy(err=>{
+    if(err){
+      return next(err)
+    }
+    res.redirect('/auth/signIn')
+  })
 }
